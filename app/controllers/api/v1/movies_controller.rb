@@ -1,4 +1,4 @@
-class Class Api::V1::MoviesController < ApplicationController
+class Api::V1::MoviesController < ApplicationController
   def index
     @movies = Movie.all
     limit = params[:_limit]
