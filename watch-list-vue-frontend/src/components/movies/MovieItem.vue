@@ -2,7 +2,7 @@
   <li>
     <img :src="poster_url" >
     <div>
-      <h3>{{ title }}</h3>
+      <h3>{{ title }} - {{ rating }} stars</h3>
       <div class="actions">
         <base-button link :to="movieDetailsLink">See details</base-button>
       </div>
@@ -12,7 +12,7 @@
 
 <script>
 export default {
-  props: ["id", "title", "poster_url"],
+  props: ["id", "title", "poster_url", "rating"],
   computed: {
     movieDetailsLink() {
       return this.$route.path + "/" + this.id;

@@ -1,6 +1,8 @@
 <template>
   <div>
-    <section>FILTER</section>
+    <section>
+      <movie-filter @change-filter="setFilters"></movie-filter>
+    </section>
     <section>
       <base-card>
         <div class="controls">
@@ -11,6 +13,7 @@
           <movie-item v-for="movie in filteredMovies"
             :key="movie.id"
             :id="movie.id"
+            :rating="movie.rating"
             :title="movie.title"
             :poster_url="movie.poster_url"
             ></movie-item>
@@ -23,19 +26,46 @@
 
 <script>
 import MovieItem from "../../components/movies/MovieItem.vue"
+import MovieFilter from "../../components/movies/MovieFilter.vue"
 
 export default {
   components: {
-    MovieItem
+    MovieItem,
+    MovieFilter
+  },
+  data() {
+    return {
+      activeFilters: {
+        "high-rating": true,
+        "mid-rating": true,
+        "low-rating": true,
+      }
+    }
   },
   computed: {
     filteredMovies() {
-      return this.$store.getters["movies/movies"];
+      const movies = this.$store.getters["movies/movies"];
+      return movies.filter(movie => {
+        if (this.activeFilters["high-rating"] && (movie.rating > 8)) {
+          return true;
+        }
+        if (this.activeFilters["mid-rating"] && (movie.rating > 5 && movie.rating <= 8)) {
+          return true;
+        }
+        if (this.activeFilters["low-rating"] && (movie.rating <= 5)) {
+          return true;
+        }
+      })
     },
     hasMovies() {
       return this.$store.getters["movies/hasMovies"]
     }
   },
+  methods: {
+    setFilters(updatedFilters) {
+      this.activeFilters = updatedFilters;
+    }
+  }
 };
 </script>
 
