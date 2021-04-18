@@ -1,5 +1,3 @@
 <template>
-  <div>
-    I'M EDITING YEY
-  </div>
+  <div>I'M EDITING YEY</div>
 </template>
