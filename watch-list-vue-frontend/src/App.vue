@@ -1,19 +1,12 @@
 <template>
-  <div id="app">
-    <div class="container">
-      <h1>Watch List Manager</h1>
-      <Movies />
-    </div>
-  </div>
+  <router-view></router-view>
 </template>
 
 <script>
-import Movies from './components/Movies.vue';
 
 export default {
   name: "App",
   components: {
-    Movies,
   }
 };
 </script>
