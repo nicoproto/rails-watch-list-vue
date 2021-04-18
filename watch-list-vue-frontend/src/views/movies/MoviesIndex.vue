@@ -2,18 +2,20 @@
   <div>
     <section>FILTER</section>
     <section>
-      <div class="controls">
-        <button>Refresh</button>
-        <router-link to="/movies/new">Add new movie</router-link>
-      </div>
-      <ul v-if="hasMovies">
-        <movie-item v-for="movie in filteredMovies"
-          :key="movie.id"
-          :title="movie.title"
-          :poster_url="movie.poster_url"
-          ></movie-item>
-      </ul>
-      <h3 v-else>No movies found.</h3>
+      <base-card>
+        <div class="controls">
+          <base-button mode="outline">Refresh</base-button>
+          <base-button link to="/movies/new">Add new movie</base-button>
+        </div>
+        <ul v-if="hasMovies">
+          <movie-item v-for="movie in filteredMovies"
+            :key="movie.id"
+            :title="movie.title"
+            :poster_url="movie.poster_url"
+            ></movie-item>
+        </ul>
+        <h3 v-else>No movies found.</h3>
+      </base-card>
     </section>
   </div>
 </template>

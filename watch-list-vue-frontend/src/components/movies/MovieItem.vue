@@ -1,9 +1,11 @@
 <template>
   <li>
-    <h3>{{ title }}</h3>
     <img :src="poster_url" >
-    <div class="actions">
-      <router-link :to="movieDetailsLink">See details</router-link>
+    <div>
+      <h3>{{ title }}</h3>
+      <div class="actions">
+        <base-button link :to="movieDetailsLink">See details</base-button>
+      </div>
     </div>
   </li>
 </template>
@@ -21,10 +23,13 @@ export default {
 
 <style scoped>
 img {
-  width: 250px;
+  height: 150px;
+  object-fit: contain;
+  margin-right: 1rem;
 }
 
 li {
+  display: flex;
   margin: 1rem 0;
   border: 1px solid #424242;
   border-radius: 12px;
