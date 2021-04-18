@@ -4,12 +4,9 @@ import NotFound from "../views/NotFound.vue";
 import MoviesIndex from "../views/movies/MoviesIndex.vue";
 import MoviesNew from "../views/movies/MoviesNew.vue";
 import MoviesShow from "../views/movies/MoviesShow.vue";
+import MoviesEdit from "../views/movies/MoviesEdit.vue";
 
 const routes = [
-  {
-    path: "/",
-    component: Home,
-  },
   {
     path: "/movies",
     component: MoviesIndex,
@@ -17,6 +14,11 @@ const routes = [
   {
     path: "/movies/:id",
     component: MoviesShow,
+    children: [
+      {
+        path: "edit", component: MoviesEdit
+      }
+    ]
   },
   {
     path: "/movies/new",
@@ -25,6 +27,10 @@ const routes = [
   {
     path: "/:notFound(.*)",
     component: NotFound,
+  },
+  {
+    path: "/",
+    component: Home,
   },
 ];
 
