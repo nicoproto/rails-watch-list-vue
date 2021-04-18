@@ -14,6 +14,7 @@ const routes = [
   {
     path: "/movies/:id",
     component: MoviesShow,
+    props: true,
     children: [
       {
         path: "edit", component: MoviesEdit

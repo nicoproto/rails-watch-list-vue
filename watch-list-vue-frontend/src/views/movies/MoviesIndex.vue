@@ -10,6 +10,7 @@
         <ul v-if="hasMovies">
           <movie-item v-for="movie in filteredMovies"
             :key="movie.id"
+            :id="movie.id"
             :title="movie.title"
             :poster_url="movie.poster_url"
             ></movie-item>
