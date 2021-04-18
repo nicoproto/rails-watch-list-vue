@@ -7,9 +7,11 @@
         <router-link to="/movies/new">Add new movie</router-link>
       </div>
       <ul v-if="hasMovies">
-        <li v-for="movie in filteredMovies" :key="movie.id">
-          {{ movie.title }}
-        </li>
+        <movie-item v-for="movie in filteredMovies"
+          :key="movie.id"
+          :title="movie.title"
+          :poster_url="movie.poster_url"
+          ></movie-item>
       </ul>
       <h3 v-else>No movies found.</h3>
     </section>
@@ -17,7 +19,12 @@
 </template>
 
 <script>
+import MovieItem from "../../components/movies/MovieItem.vue"
+
 export default {
+  components: {
+    MovieItem
+  },
   computed: {
     filteredMovies() {
       return this.$store.getters["movies/movies"];
@@ -28,3 +35,16 @@ export default {
   },
 };
 </script>
+
+<style scoped>
+ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.controls {
+  display: flex;
+  justify-content: space-between;
+}
+</style>
