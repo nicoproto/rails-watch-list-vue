@@ -8,7 +8,6 @@ import MoviesShow from "../views/movies/MoviesShow.vue";
 const routes = [
   {
     path: "/",
-    name: "Home",
     component: Home,
   },
   {
