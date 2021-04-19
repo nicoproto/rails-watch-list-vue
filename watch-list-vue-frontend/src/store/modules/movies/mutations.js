@@ -7,5 +7,8 @@ export default {
   },
   setMovie(state, payload) {
     state.selectedMovie = payload;
+  },
+  setFetchTimestamp(state) {
+    state.lastFetch = new Date().getTime();
   }
 };

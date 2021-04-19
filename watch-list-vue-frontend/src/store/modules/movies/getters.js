@@ -7,5 +7,14 @@ export default {
   },
   selectedMovie(state) {
     return state.selectedMovie;
+  },
+  shouldUpdate(state) {
+    console.log("lastFetch: ", state.lastFetch);
+    const lastFetch = state.lastFetch;
+    if (!lastFetch) {
+      return true;
+    }
+    const currentTimestamp = new Date().getTime();
+    return (currentTimestamp - lastFetch) / 1000 > 60;
   }
 };

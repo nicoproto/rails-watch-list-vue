@@ -7,7 +7,7 @@ export default {
       poster_url: payload.poster_url,
       rating: payload.rating
     }
-    const response = await fetch("http://localhost:3000/api/v1/movi es", {
+    const response = await fetch("http://localhost:3000/api/v1/movies", {
       method: "POST",
       headers: {"Content-Type": "application/json"},
       body: JSON.stringify({ "movie": movieData})
@@ -27,7 +27,11 @@ export default {
       id: responseData.id
     });
   },
-  async loadMovies(context) {
+  async loadMovies(context, payload) {
+    if (!payload.forceRefresh && !context.getters.shouldUpdate) {
+      return;
+    }
+
     const response = await fetch("http://localhost:3000/api/v1/movies");
 
     const responseData = await response.json();
@@ -51,6 +55,7 @@ export default {
     }
 
     context.commit("setMovies", movies);
+    context.commit("setFetchTimestamp");
   },
   async loadMovie(context, payload) {
     const response = await fetch(`http://localhost:3000/api/v1/movies/${payload.id}`);
@@ -65,5 +70,6 @@ export default {
     console.log(responseData)
 
     context.commit("setMovie", responseData);
+
   }
 };

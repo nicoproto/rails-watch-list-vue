@@ -9,7 +9,7 @@
     <section>
       <base-card>
         <div class="controls">
-          <base-button mode="outline" @click="loadMovies">Refresh</base-button>
+          <base-button mode="outline" @click="loadMovies(true)">Refresh</base-button>
           <base-button link to="/movies/new">Add new movie</base-button>
         </div>
         <div v-if="isLoading">
@@ -76,10 +76,10 @@ export default {
     setFilters(updatedFilters) {
       this.activeFilters = updatedFilters;
     },
-    async loadMovies() {
+    async loadMovies(refresh = false) {
       this.isLoading = true;
       try {
-        await this.$store.dispatch("movies/loadMovies")
+        await this.$store.dispatch("movies/loadMovies", { forceRefresh: refresh})
       } catch (error) {
         this.error = error.message || 'Something went wrong!';
       }
