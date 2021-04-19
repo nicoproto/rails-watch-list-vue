@@ -9,7 +9,10 @@
           <base-button mode="outline" @click="loadMovies">Refresh</base-button>
           <base-button link to="/movies/new">Add new movie</base-button>
         </div>
-        <ul v-if="hasMovies">
+        <div v-if="isLoading">
+          <base-spinner></base-spinner>
+        </div>
+        <ul v-else-if="hasMovies">
           <movie-item v-for="movie in filteredMovies"
             :key="movie.id"
             :id="movie.id"
@@ -35,6 +38,7 @@ export default {
   },
   data() {
     return {
+      isLoading: false,
       activeFilters: {
         "high-rating": true,
         "mid-rating": true,
@@ -58,8 +62,8 @@ export default {
       })
     },
     hasMovies() {
-      return this.$store.getters["movies/hasMovies"]
-    }
+      return !this.isLoading && this.$store.getters["movies/hasMovies"]
+    },
   },
   created() {
     this.loadMovies();
@@ -68,8 +72,11 @@ export default {
     setFilters(updatedFilters) {
       this.activeFilters = updatedFilters;
     },
-    loadMovies() {
-      this.$store.dispatch("movies/loadMovies")
+    async loadMovies() {
+      this.isLoading = true;
+      await this.$store.dispatch("movies/loadMovies")
+      this.isLoading = false;
+
     }
   },
 };
