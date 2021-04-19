@@ -1,21 +1,27 @@
 <template>
   <form @submit.prevent="submitForm">
-    <div class="form-control">
+    <div class="form-control" :class="{invalid: !title.isValid}">
       <label for="title">Title</label>
-      <input type="text" id="title" v-model.trim="title">
+      <input type="text" id="title" v-model.trim="title.val" @blur="clearValidity('title')">
     </div>
-    <div class="form-control">
+    <p v-if="!title.isValid">Title must not be empty.</p>
+    <div class="form-control" :class="{invalid: !overview.isValid}">
       <label for="overview">Overview</label>
-      <textarea id="overview" rows="5" v-model.trim="overview"></textarea>
+      <textarea id="overview" rows="5" v-model.trim="overview.val" @blur="clearValidity('overview')"></textarea>
     </div>
-    <div class="form-control">
+    <p v-if="!overview.isValid">Overview must not be empty.</p>
+    <div class="form-control" :class="{invalid: !rating.isValid}">
       <label for="rating">Rating</label>
-      <input type="number" id="rating" v-model.number="rating">
+      <input type="number" id="rating" v-model.number="rating.val" @blur="clearValidity('rating')">
     </div>
-    <div class="form-control">
+    <p v-if="!rating.isValid">Rating must be greater than 0.</p>
+    <div class="form-control" :class="{invalid: !poster_url.isValid}">
       <label for="poster">Poster URL</label>
-      <input type="text" id="poster" v-model.trim="poster_url">
+      <input type="text" id="poster" v-model.trim="poster_url.val" @blur="clearValidity('poster_url')">
     </div>
+    <p v-if="!poster_url.isValid">Poster URL must not be empty.</p>
+
+    <p v-if="!formIsValid">Please fix the above errors and submit again.</p>
     <base-button>Create movie</base-button>
   </form>
 </template>
@@ -25,19 +31,61 @@ export default {
   emits: ["save-data"],
   data() {
     return {
-      title: "",
-      overview: "",
-      rating: null,
-      poster_url: ""
+      title: {
+        val: "",
+        isValid: true
+      },
+      overview: {
+        val: "",
+        isValid: true
+      },
+      rating: {
+        val: null,
+        isValid: true
+      },
+      poster_url: {
+        val: "",
+        isValid: true
+      },
+      formIsValid: true,
     }
   },
   methods: {
+    clearValidity(input) {
+      this[input].isValid = true;
+    },
+    validateForm() {
+      this.formIsValid = true;
+
+      if (this.title.val == "") {
+        this.title.isValid = false;
+        this.formIsValid = false;
+      }
+      if (this.overview.val == "") {
+        this.overview.isValid = false;
+        this.formIsValid = false;
+      }
+      if (!this.rating.val || this.rating.val < 0) {
+        this.rating.isValid = false;
+        this.formIsValid = false;
+      }
+      if (this.poster_url.val == "") {
+        this.poster_url.isValid = false;
+        this.formIsValid = false;
+      }
+    },
     submitForm() {
+      this.validateForm();
+
+      if (!this.formIsValid) {
+        return;
+      }
+
       const formData = {
-        title: this.title,
-        overview: this.overview,
-        rating: this.rating,
-        poster_url: this.poster_url
+        title: this.title.val,
+        overview: this.overview.val,
+        rating: this.rating.val,
+        poster_url: this.poster_url.val,
       }
 
       this.$emit("save-data", formData);
