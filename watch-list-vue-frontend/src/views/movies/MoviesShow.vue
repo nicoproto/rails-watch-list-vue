@@ -17,7 +17,7 @@
     </section>
     <section>
       <base-card class="movie-info">
-        <img :src="poster_url">
+        <img :src="poster_url" />
         <p>{{ overview }}</p>
       </base-card>
     </section>
@@ -32,14 +32,14 @@ export default {
   data() {
     return {
       selectedMovie: null,
-    }
+    };
   },
   created() {
     this.selectedMovie = this.$store.getters['movies/movies'].find(movie => movie.id === this.id);
   },
   computed: {
     editLink() {
-      return this.$route.path + "/edit"
+      return this.$route.path + "/edit";
     },
     title() {
       return this.selectedMovie.title;
@@ -53,18 +53,17 @@ export default {
     rating() {
       return this.selectedMovie.rating;
     },
-  }
-}
+  },
+};
 </script>
 
 <style scoped>
 img {
   height: 150px;
-  margin-right: 1rem
+  margin-right: 1rem;
 }
 
 .movie-info {
   display: flex;
 }
-
 </style>

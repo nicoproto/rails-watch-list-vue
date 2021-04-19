@@ -22,6 +22,7 @@
 
 <script>
 export default {
+  emits: ["save-data"],
   data() {
     return {
       title: "",
@@ -38,7 +39,8 @@ export default {
         rating: this.rating,
         poster_url: this.poster_url
       }
-      console.log(formData);
+
+      this.$emit("save-data", formData);
     }
   }
 }
