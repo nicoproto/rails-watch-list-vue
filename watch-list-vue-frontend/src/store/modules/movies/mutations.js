@@ -4,5 +4,8 @@ export default {
   },
   setMovies(state, payload) {
     state.movies = payload;
+  },
+  setMovie(state, payload) {
+    state.selectedMovie = payload;
   }
 };

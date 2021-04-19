@@ -2,8 +2,8 @@
   <div>
     <section>
       <base-card>
-        <h2>{{ title }}</h2>
-        <h3>Rating: {{ rating }} stars</h3>
+        <h2>{{ selectedMovie.title }}</h2>
+        <h3>Rating: {{ selectedMovie.rating }} stars</h3>
       </base-card>
     </section>
     <section>
@@ -17,8 +17,8 @@
     </section>
     <section>
       <base-card class="movie-info">
-        <img :src="poster_url" />
-        <p>{{ overview }}</p>
+        <img :src="selectedMovie.poster_url" />
+        <p>{{ selectedMovie.overview }}</p>
       </base-card>
     </section>
   </div>
@@ -31,11 +31,12 @@ export default {
   props: ["id"],
   data() {
     return {
-      selectedMovie: null,
+      selectedMovie: "",
     };
   },
   created() {
-    this.selectedMovie = this.$store.getters['movies/movies'].find(movie => movie.id === this.id);
+    this.loadMovie();
+    console.log(this.selectedMovie);
   },
   computed: {
     editLink() {
@@ -54,6 +55,20 @@ export default {
       return this.selectedMovie.rating;
     },
   },
+  methods: {
+    async loadMovie() {
+      // this.isLoading = true;
+      try {
+        await this.$store.dispatch("movies/loadMovie", {id: this.id});
+        this.selectedMovie = this.$store.getters["movies/selectedMovie"]
+      } catch (error) {
+        console.log(error);
+        // this.error = error.message || 'Something went wrong!';
+      }
+      // this.isLoading = false;
+      console.log(this.selectedMovie);
+    },
+  }
 };
 </script>
 

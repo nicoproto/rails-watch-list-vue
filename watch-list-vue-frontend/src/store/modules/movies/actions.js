@@ -37,15 +37,12 @@ export default {
       throw error;
     }
 
-
-
     const movies = [];
 
     for (const key in responseData) {
       const movie = {
         id: responseData[key].id,
         title: responseData[key].title,
-        overview: responseData[key].overview,
         poster_url: responseData[key].poster_url,
         rating: responseData[key].rating
       }
@@ -54,5 +51,19 @@ export default {
     }
 
     context.commit("setMovies", movies);
+  },
+  async loadMovie(context, payload) {
+    const response = await fetch(`http://localhost:3000/api/v1/movies/${payload.id}`);
+
+    const responseData = await response.json();
+
+    if (!response.ok) {
+      const error = new Error(responseData.message || "Failed to fetch movie!");
+      throw error;
+    }
+
+    console.log(responseData)
+
+    context.commit("setMovie", responseData);
   }
 };
