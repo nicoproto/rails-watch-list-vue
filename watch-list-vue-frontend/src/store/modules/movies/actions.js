@@ -7,7 +7,7 @@ export default {
       poster_url: payload.poster_url,
       rating: payload.rating
     }
-    const response = await fetch("http://localhost:3000/api/v1/movies", {
+    const response = await fetch("http://localhost:3000/api/v1/movi es", {
       method: "POST",
       headers: {"Content-Type": "application/json"},
       body: JSON.stringify({ "movie": movieData})
@@ -15,8 +15,9 @@ export default {
 
     const responseData = await response.json();
 
-    if (!response.status === 201) {
-      // error ...
+    if (!response.status.ok) {
+      const error = new Error(responseData.message || "Failed to create movie!");
+      throw error;
     }
 
     console.log(responseData);
@@ -31,11 +32,12 @@ export default {
 
     const responseData = await response.json();
 
-    if (!response.status === 201) {
-      // error ...
+    if (!response.ok) {
+      const error = new Error(responseData.message || "Failed to fetch movies!");
+      throw error;
     }
 
-    console.log(responseData);
+
 
     const movies = [];
 

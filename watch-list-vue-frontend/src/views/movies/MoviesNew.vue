@@ -1,10 +1,18 @@
 <template>
-  <section>
-    <base-card>
-      <h2>Add a Movie</h2>
-      <movie-form @save-data="saveData"></movie-form>
-    </base-card>
-  </section>
+  <div>
+    <base-dialog :show="!!error" title="An error ocurred!" @close="handleError">
+      <p>{{ error }}</p>
+    </base-dialog>
+    <section>
+      <base-card>
+        <h2>Add a Movie</h2>
+        <div v-if="isLoading">
+          <base-spinner></base-spinner>
+        </div>
+        <movie-form v-else @save-data="saveData"></movie-form>
+      </base-card>
+    </section>
+  </div>
 </template>
 
 <script>
@@ -14,10 +22,25 @@ export default {
   components: {
     MovieForm
   },
+  data() {
+    return {
+      isLoading: false,
+      error: null,
+    }
+  },
   methods: {
-    saveData(data) {
-      this.$store.dispatch("movies/registerMovie", data);
-      this.$router.replace("/movies");
+    async saveData(data) {
+      this.isLoading = true;
+      try {
+        await this.$store.dispatch("movies/registerMovie", data);
+        this.$router.replace("/movies");
+      } catch (error) {
+        this.error = error.message || 'Something went wrong!';
+      }
+      this.isLoading = false;
+    },
+    handleError() {
+      this.error = null;
     }
   }
 }

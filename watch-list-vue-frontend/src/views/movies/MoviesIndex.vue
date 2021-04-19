@@ -1,5 +1,8 @@
 <template>
   <div>
+    <base-dialog :show="!!error" title="An error ocurred!" @close="handleError">
+      <p>{{ error }}</p>
+    </base-dialog>
     <section>
       <movie-filter @change-filter="setFilters"></movie-filter>
     </section>
@@ -39,6 +42,7 @@ export default {
   data() {
     return {
       isLoading: false,
+      error: null,
       activeFilters: {
         "high-rating": true,
         "mid-rating": true,
@@ -74,9 +78,15 @@ export default {
     },
     async loadMovies() {
       this.isLoading = true;
-      await this.$store.dispatch("movies/loadMovies")
+      try {
+        await this.$store.dispatch("movies/loadMovies")
+      } catch (error) {
+        this.error = error.message || 'Something went wrong!';
+      }
       this.isLoading = false;
-
+    },
+    handleError() {
+      this.error = null;
     }
   },
 };
