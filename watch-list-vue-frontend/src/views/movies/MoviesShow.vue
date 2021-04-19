@@ -7,18 +7,19 @@
       </base-card>
     </section>
     <section>
+      <base-card class="movie-info">
+        <img :src="selectedMovie.poster_url" />
+        <p>{{ selectedMovie.overview }}</p>
+      </base-card>
+    </section>
+    <section>
       <base-card>
         <header>
           <h3>Actions:</h3>
           <base-button link :to="editLink">Edit</base-button>
+          <base-button @click="destroyMovie">Destroy</base-button>
         </header>
         <router-view></router-view>
-      </base-card>
-    </section>
-    <section>
-      <base-card class="movie-info">
-        <img :src="selectedMovie.poster_url" />
-        <p>{{ selectedMovie.overview }}</p>
       </base-card>
     </section>
   </div>
@@ -42,6 +43,9 @@ export default {
     editLink() {
       return this.$route.path + "/edit";
     },
+    destroyLink() {
+      return this.$route.path;
+    },
     title() {
       return this.selectedMovie.title;
     },
@@ -57,17 +61,22 @@ export default {
   },
   methods: {
     async loadMovie() {
-      // this.isLoading = true;
       try {
         await this.$store.dispatch("movies/loadMovie", {id: this.id});
         this.selectedMovie = this.$store.getters["movies/selectedMovie"]
       } catch (error) {
         console.log(error);
-        // this.error = error.message || 'Something went wrong!';
       }
-      // this.isLoading = false;
       console.log(this.selectedMovie);
     },
+    async destroyMovie() {
+      try {
+        this.$store.dispatch("movies/destroyMovie", { id: this.id })
+        this.$router.replace("/movies");
+      } catch (error) {
+        console.log(error);
+      }
+    }
   }
 };
 </script>

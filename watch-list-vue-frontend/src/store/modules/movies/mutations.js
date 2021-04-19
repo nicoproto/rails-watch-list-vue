@@ -10,5 +10,9 @@ export default {
   },
   setFetchTimestamp(state) {
     state.lastFetch = new Date().getTime();
+  },
+  destroyMovie(state, payload) {
+    state.movies = state.movies.filter(movie => movie.id != payload.id);
+    console.log(state.movies);
   }
 };

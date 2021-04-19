@@ -67,9 +67,25 @@ export default {
       throw error;
     }
 
-    console.log(responseData)
-
     context.commit("setMovie", responseData);
+  },
+  async destroyMovie(context, payload) {
+    const response = await fetch(`http://localhost:3000/api/v1/movies/${payload.id}`, {
+      method: "DELETE"
+    });
+
+    const responseData = await response.json();
+
+    if (!response.ok) {
+      const error = new Error(responseData.message || "Failed to destroy movie!");
+      throw error;
+    }
+
+    console.log(responseData);
+
+    context.commit("destroyMovie", {
+      id: payload.id
+    });
 
   }
 };

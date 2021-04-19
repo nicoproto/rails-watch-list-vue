@@ -15,11 +15,11 @@ const routes = [
     path: "/movies/:id",
     component: MoviesShow,
     props: true,
-    children: [
-      {
-        path: "edit", component: MoviesEdit
-      }
-    ]
+  },
+  {
+    path: "/movies/:id/edit",
+    component: MoviesEdit,
+    props: true,
   },
   {
     path: "/movies/new",

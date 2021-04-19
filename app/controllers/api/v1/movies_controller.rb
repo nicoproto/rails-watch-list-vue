@@ -1,5 +1,5 @@
 class Api::V1::MoviesController < ApplicationController
-  before_action :set_movie, only: [ :show ]
+  before_action :set_movie, only: [ :show, :update, :destroy ]
 
   def index
     # TODO: Update this to actually render with jbuilder
@@ -22,6 +22,22 @@ class Api::V1::MoviesController < ApplicationController
       render :show, status: :created
     else
       render_error
+    end
+  end
+
+  def update
+    if @movie.update(movie_params)
+      render json: { status: :ok, message: 'Movie updated' }
+    else
+      render json: { json: @movie.errors, status: :unprocessable_entity }
+    end
+  end
+
+  def destroy
+    if @movie.destroy
+      render json: { status: :ok, message: 'Movie destroyed' }
+    else
+      render json: { json: @movie.errors, status: :unprocessable_entity }
     end
   end
 
