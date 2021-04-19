@@ -6,7 +6,7 @@
     <section>
       <base-card>
         <div class="controls">
-          <base-button mode="outline">Refresh</base-button>
+          <base-button mode="outline" @click="loadMovies">Refresh</base-button>
           <base-button link to="/movies/new">Add new movie</base-button>
         </div>
         <ul v-if="hasMovies">
@@ -61,11 +61,17 @@ export default {
       return this.$store.getters["movies/hasMovies"]
     }
   },
+  created() {
+    this.loadMovies();
+  },
   methods: {
     setFilters(updatedFilters) {
       this.activeFilters = updatedFilters;
+    },
+    loadMovies() {
+      this.$store.dispatch("movies/loadMovies")
     }
-  }
+  },
 };
 </script>
 

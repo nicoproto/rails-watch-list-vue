@@ -2,6 +2,7 @@ class Api::V1::MoviesController < ApplicationController
   before_action :set_movie, only: [ :show ]
 
   def index
+    # TODO: Update this to actually render with jbuilder
     @movies = Movie.all
     limit = params[:_limit]
 
