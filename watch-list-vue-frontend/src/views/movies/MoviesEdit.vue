@@ -59,16 +59,13 @@ export default {
       this.error = null;
     },
     async setMovie() {
-      // TODO: Add loader for this
-      // this.isLoading = true;
+      this.isLoading = true;
       try {
         await this.loadMovie({ id: this.id });
-        console.log(this.selectedMovie);
       } catch (error) {
-        console.log(error);
-        // this.error = error.message || 'Something went wrong!';
+        this.error = error.message || 'Something went wrong!';
       }
-      // this.isLoading = false;
+      this.isLoading = false;
     },
   },
   mounted() {
