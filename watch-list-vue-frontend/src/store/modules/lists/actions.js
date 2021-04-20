@@ -5,10 +5,14 @@ export default {
     const responseData = await response.json();
 
     if (!response.ok) {
-      // TODO: Handle error
+      const error = new Error(
+        responseData.message || "Failed to fetch lists!"
+      );
+      throw error;
     }
 
     const lists = [];
+    console.log(responseData)
 
     for (const key in responseData) {
       const list = {

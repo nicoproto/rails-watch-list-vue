@@ -1,5 +1,8 @@
 <template>
   <div>
+    <base-dialog :show="!!error" title="An error ocurred!" @close="handleError">
+      <p>{{ error }}</p>
+    </base-dialog>
     <section>FILTERS</section>
     <section>
       <base-card>
@@ -31,6 +34,7 @@ export default {
   data() {
     return {
       isLoading: false,
+      error: null,
     };
   },
   computed: {
@@ -48,9 +52,12 @@ export default {
       try {
         await this.loadLists();
       } catch (error) {
-        // TODO: Handle error
+        this.error = error.message || "Something went wrong!";
       }
       this.isLoading = false;
+    },
+    handleError() {
+      this.error = null;
     },
   },
   created() {
