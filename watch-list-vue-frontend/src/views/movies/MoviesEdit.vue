@@ -63,7 +63,7 @@ export default {
       try {
         await this.loadMovie({ id: this.id });
       } catch (error) {
-        this.error = error.message || 'Something went wrong!';
+        this.error = error.message || "Something went wrong!";
       }
       this.isLoading = false;
     },

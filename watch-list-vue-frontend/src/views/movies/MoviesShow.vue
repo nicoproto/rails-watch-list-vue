@@ -83,7 +83,7 @@ export default {
     },
     async removeMovie() {
       this.isLoading = true;
-      if(confirm("Do you really want to delete?")) {
+      if (confirm("Do you really want to delete?")) {
         try {
           await this.destroyMovie({ id: this.id });
           this.$router.replace("/movies");
