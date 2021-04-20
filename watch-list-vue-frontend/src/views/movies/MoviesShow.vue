@@ -7,13 +7,16 @@
       </base-card>
     </section>
     <section>
-      <base-card class="movie-info">
+      <div v-if="isLoading">
+        <base-spinner></base-spinner>
+      </div>
+      <base-card v-else class="movie-info">
         <img :src="selectedMovie.poster_url" />
         <p>{{ selectedMovie.overview }}</p>
       </base-card>
     </section>
     <section>
-      <base-card>
+      <base-card v-if="!isLoading">
         <header>
           <h3>Actions:</h3>
           <base-button link :to="editLink">Edit</base-button>
@@ -35,6 +38,7 @@ export default {
   props: ["id"],
   data() {
     return {
+      isLoading: false,
       selectedMovie: "",
     };
   },
@@ -78,14 +82,16 @@ export default {
       }
     },
     async removeMovie() {
+      this.isLoading = true;
       if(confirm("Do you really want to delete?")) {
         try {
-          this.destroyMovie({ id: this.id });
+          await this.destroyMovie({ id: this.id });
           this.$router.replace("/movies");
         } catch (error) {
           console.log(error);
         }
       }
+      this.isLoading = false;
     },
   },
 };
