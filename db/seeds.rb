@@ -32,4 +32,18 @@ movies["results"].each do |movie|
   end
 end
 
+puts "Done creating movies!"
+
+list_names = ["action", "adventure", "comedy", "crime and mystery", "fantasy", "historical", "horror", "romance", "satire", "science fiction", "speculative", "thriller", "western"]
+
+puts "Creating movies..."
+
+list_names.each do |list_name|
+  list = List.create!(name: list_name)
+  puts list.name + " created!"
+  line
+end
+
+puts "Done creating lists"
+
 puts "Seeding done!"
