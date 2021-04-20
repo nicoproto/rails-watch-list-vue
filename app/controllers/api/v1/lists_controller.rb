@@ -35,7 +35,7 @@ class Api::V1::ListsController < ApplicationController
   private
 
   def list_params
-    params.require(:list).permit(:title, :overview, :poster_url, :rating)
+    params.require(:list).permit(:name)
   end
 
   def set_list
