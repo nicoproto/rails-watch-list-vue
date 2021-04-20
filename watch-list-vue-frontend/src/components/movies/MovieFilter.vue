@@ -2,15 +2,15 @@
   <base-card>
     <h2>Find your movie</h2>
     <span class="filter-option">
-      <input type="checkbox" id="high-rating" checked @change="setFilter">
+      <input type="checkbox" id="high-rating" checked @change="setFilter" />
       <label for="high-rating">High rank</label>
     </span>
     <span class="filter-option">
-      <input type="checkbox" id="mid-rating" checked @change="setFilter">
+      <input type="checkbox" id="mid-rating" checked @change="setFilter" />
       <label for="mid-rating">Mid rank</label>
     </span>
     <span class="filter-option">
-      <input type="checkbox" id="low-rating" checked @change="setFilter">
+      <input type="checkbox" id="low-rating" checked @change="setFilter" />
       <label for="low-rating">Low rank</label>
     </span>
   </base-card>
@@ -25,8 +25,8 @@ export default {
         "high-rating": true,
         "mid-rating": true,
         "low-rating": true,
-      }
-    }
+      },
+    };
   },
   methods: {
     setFilter(event) {
@@ -34,13 +34,13 @@ export default {
       const isActive = event.target.checked;
       const updatedFilters = {
         ...this.filters,
-        [inputId]: isActive
-      }
+        [inputId]: isActive,
+      };
       this.filters = updatedFilters;
       this.$emit("change-filter", updatedFilters);
-    }
-  }
-}
+    },
+  },
+};
 </script>
 
 <style scoped>

@@ -9,8 +9,10 @@
         <div v-if="isLoading">
           <base-spinner></base-spinner>
         </div>
-        <movie-form v-else @save-data="saveData"
-          :movieValues="{...selectedMovie}"
+        <movie-form
+          v-else
+          @save-data="saveData"
+          :movieValues="{ ...selectedMovie }"
           :editing="true"
         ></movie-form>
       </base-card>
@@ -21,27 +23,27 @@
 <script>
 // FIXME: When you reload the page you lose the info
 import MovieForm from "../../components/movies/MovieForm.vue";
-import { mapActions, mapGetters } from 'vuex'
+import { mapActions, mapGetters } from "vuex";
 export default {
   props: ["id"],
   components: {
-    MovieForm
+    MovieForm,
   },
   data() {
     return {
       isLoading: false,
       error: null,
-    }
+    };
   },
   computed: {
     ...mapGetters({
-      selectedMovie: "movies/selectedMovie"
-    })
+      selectedMovie: "movies/selectedMovie",
+    }),
   },
   methods: {
     ...mapActions({
       updateMovie: "movies/updateMovie",
-      loadMovie: "movies/loadMovie"
+      loadMovie: "movies/loadMovie",
     }),
     async saveData(data) {
       this.isLoading = true;
@@ -49,7 +51,7 @@ export default {
         await this.updateMovie(data);
         this.$router.replace(`/movies/${data.id}`);
       } catch (error) {
-        this.error = error.message || 'Something went wrong!';
+        this.error = error.message || "Something went wrong!";
       }
       this.isLoading = false;
     },
@@ -60,7 +62,7 @@ export default {
       // TODO: Add loader for this
       // this.isLoading = true;
       try {
-        await this.loadMovie({id: this.id});
+        await this.loadMovie({ id: this.id });
         console.log(this.selectedMovie);
       } catch (error) {
         console.log(error);
@@ -72,5 +74,5 @@ export default {
   mounted() {
     this.setMovie();
   },
-}
+};
 </script>

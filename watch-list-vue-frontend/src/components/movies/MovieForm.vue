@@ -23,20 +23,20 @@
     <div class="form-control" :class="{ invalid: !ratingIsValid }">
       <label for="rating">Rating</label>
       <input
-      type="number"
-      id="rating"
-      v-model.number="movie.rating"
-      @blur="clearValidity('rating')"
+        type="number"
+        id="rating"
+        v-model.number="movie.rating"
+        @blur="clearValidity('rating')"
       />
     </div>
     <p v-if="!ratingIsValid">Rating must be greater than 0.</p>
     <div class="form-control" :class="{ invalid: !poster_urlIsValid }">
       <label for="poster">Poster URL</label>
       <input
-      type="text"
-      id="poster"
-      v-model.trim="movie.poster_url"
-      @blur="clearValidity('poster_url')"
+        type="text"
+        id="poster"
+        v-model.trim="movie.poster_url"
+        @blur="clearValidity('poster_url')"
       />
     </div>
     <p v-if="!poster_urlIsValid">Poster URL must not be empty.</p>
@@ -66,7 +66,7 @@ export default {
   },
   data() {
     return {
-      movie: { ...this.movieValues},
+      movie: { ...this.movieValues },
       titleIsValid: true,
       overviewIsValid: true,
       ratingIsValid: true,
@@ -82,7 +82,7 @@ export default {
   watch: {
     movieValues() {
       this.movie = this.movieValues;
-    }
+    },
   },
   methods: {
     clearValidity(input) {

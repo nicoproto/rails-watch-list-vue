@@ -1,6 +1,6 @@
 <template>
   <li>
-    <img :src="poster_url" >
+    <img :src="poster_url" />
     <div>
       <h3>{{ title }} - {{ rating }} stars</h3>
       <div class="actions">
@@ -16,9 +16,9 @@ export default {
   computed: {
     movieDetailsLink() {
       return this.$route.path + "/" + this.id;
-    }
-  }
-}
+    },
+  },
+};
 </script>
 
 <style scoped>

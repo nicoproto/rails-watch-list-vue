@@ -9,20 +9,23 @@
     <section>
       <base-card>
         <div class="controls">
-          <base-button mode="outline" @click="loadMovies(true)">Refresh</base-button>
+          <base-button mode="outline" @click="loadMovies(true)"
+            >Refresh</base-button
+          >
           <base-button link to="/movies/new">Add new movie</base-button>
         </div>
         <div v-if="isLoading">
           <base-spinner></base-spinner>
         </div>
         <ul v-else-if="hasMovies">
-          <movie-item v-for="movie in filteredMovies"
+          <movie-item
+            v-for="movie in filteredMovies"
             :key="movie.id"
             :id="movie.id"
             :rating="movie.rating"
             :title="movie.title"
             :poster_url="movie.poster_url"
-            ></movie-item>
+          ></movie-item>
         </ul>
         <h3 v-else>No movies found.</h3>
       </base-card>
@@ -38,7 +41,7 @@ import { mapActions, mapGetters } from "vuex";
 export default {
   components: {
     MovieItem,
-    MovieFilter
+    MovieFilter,
   },
   data() {
     return {
@@ -48,29 +51,33 @@ export default {
         "high-rating": true,
         "mid-rating": true,
         "low-rating": true,
-      }
-    }
+      },
+    };
   },
   computed: {
     ...mapGetters({
-      movies: "movies/movies"
+      movies: "movies/movies",
     }),
     filteredMovies() {
       const movies = this.movies;
-      return movies.filter(movie => {
-        if (this.activeFilters["high-rating"] && (movie.rating > 8)) {
+      return movies.filter((movie) => {
+        if (this.activeFilters["high-rating"] && movie.rating > 8) {
           return true;
         }
-        if (this.activeFilters["mid-rating"] && (movie.rating > 5 && movie.rating <= 8)) {
+        if (
+          this.activeFilters["mid-rating"] &&
+          movie.rating > 5 &&
+          movie.rating <= 8
+        ) {
           return true;
         }
-        if (this.activeFilters["low-rating"] && (movie.rating <= 5)) {
+        if (this.activeFilters["low-rating"] && movie.rating <= 5) {
           return true;
         }
-      })
+      });
     },
     hasMovies() {
-      return !this.isLoading && this.$store.getters["movies/hasMovies"]
+      return !this.isLoading && this.$store.getters["movies/hasMovies"];
     },
   },
   created() {
@@ -86,15 +93,15 @@ export default {
     async setMovies(refresh = false) {
       this.isLoading = true;
       try {
-        await this.loadMovies({ forceRefresh: refresh});
+        await this.loadMovies({ forceRefresh: refresh });
       } catch (error) {
-        this.error = error.message || 'Something went wrong!';
+        this.error = error.message || "Something went wrong!";
       }
       this.isLoading = false;
     },
     handleError() {
       this.error = null;
-    }
+    },
   },
 };
 </script>

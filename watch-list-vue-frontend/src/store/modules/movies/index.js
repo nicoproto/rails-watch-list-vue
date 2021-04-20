@@ -9,9 +9,9 @@ export default {
       lastFetch: null,
       movies: [],
       selectedMovie: {},
-    }
+    };
   },
   mutations,
   actions,
-  getters
-}
+  getters,
+};

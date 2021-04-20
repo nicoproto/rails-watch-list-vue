@@ -38,13 +38,13 @@ export default {
       default: false,
     },
   },
-  emits: ['close'],
+  emits: ["close"],
   methods: {
     tryClose() {
       if (this.fixed) {
         return;
       }
-      this.$emit('close');
+      this.$emit("close");
     },
   },
 };
@@ -117,7 +117,6 @@ menu {
   opacity: 1;
   transform: scale(1);
 }
-
 
 @media (min-width: 768px) {
   dialog {

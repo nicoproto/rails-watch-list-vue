@@ -27,7 +27,7 @@
 
 <script>
 // TODO: Add confirmation on destroy
-import BaseButton from '../../components/ui/BaseButton.vue';
+import BaseButton from "../../components/ui/BaseButton.vue";
 import { mapGetters, mapActions } from "vuex";
 
 export default {
@@ -43,7 +43,7 @@ export default {
   },
   computed: {
     ...mapGetters({
-      selectedStoreMovie: "movies/selectedMovie"
+      selectedStoreMovie: "movies/selectedMovie",
     }),
     editLink() {
       return this.$route.path + "/edit";
@@ -67,11 +67,11 @@ export default {
   methods: {
     ...mapActions({
       loadMovie: "movies/loadMovie",
-      destroyMovie: "movies/destroyMovie"
+      destroyMovie: "movies/destroyMovie",
     }),
     async setMovie() {
       try {
-        await this.loadMovie({id: this.id});
+        await this.loadMovie({ id: this.id });
         this.selectedMovie = this.selectedStoreMovie;
       } catch (error) {
         console.log(error);
@@ -84,8 +84,8 @@ export default {
       } catch (error) {
         console.log(error);
       }
-    }
-  }
+    },
+  },
 };
 </script>
 
