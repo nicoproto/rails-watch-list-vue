@@ -4,8 +4,8 @@
       <h1><router-link to="/">Watch List</router-link></h1>
       <ul>
         <li><router-link to="/movies">All movies</router-link></li>
-        <li><router-link to="/movies/new">Add a Movie</router-link></li>
         <li><router-link to="/lists">All lists</router-link></li>
+        <li><router-link to="/movies/new">Add a Movie</router-link></li>
       </ul>
     </nav>
   </header>
