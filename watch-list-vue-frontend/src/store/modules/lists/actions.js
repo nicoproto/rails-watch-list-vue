@@ -12,7 +12,6 @@ export default {
     }
 
     const lists = [];
-    console.log(responseData)
 
     for (const key in responseData) {
       const list = {
