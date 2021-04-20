@@ -11,6 +11,7 @@
         </div>
         <movie-form v-else @save-data="saveData"
           :movieValues="{...selectedMovie}"
+          :editing="true"
         ></movie-form>
       </base-card>
     </section>
@@ -20,7 +21,7 @@
 <script>
 // FIXME: When you reload the page you lose the info
 import MovieForm from "../../components/movies/MovieForm.vue";
-import { mapGetters } from 'vuex'
+import { mapActions, mapGetters } from 'vuex'
 export default {
   props: ["id"],
   components: {
@@ -38,11 +39,15 @@ export default {
     })
   },
   methods: {
+    ...mapActions({
+      updateMovie: "movies/updateMovie",
+      loadMovie: "movies/loadMovie"
+    }),
     async saveData(data) {
       this.isLoading = true;
       try {
-        await this.$store.dispatch("movies/updateMovie", data);
-        this.$router.replace("/movies");
+        await this.updateMovie(data);
+        this.$router.replace(`/movies/${data.id}`);
       } catch (error) {
         this.error = error.message || 'Something went wrong!';
       }
@@ -51,11 +56,11 @@ export default {
     handleError() {
       this.error = null;
     },
-    async loadMovie() {
+    async setMovie() {
       // TODO: Add loader for this
       // this.isLoading = true;
       try {
-        await this.$store.dispatch("movies/loadMovie", {id: this.id});
+        await this.loadMovie({id: this.id});
       } catch (error) {
         console.log(error);
         // this.error = error.message || 'Something went wrong!';
@@ -64,7 +69,7 @@ export default {
     },
   },
   created() {
-    this.loadMovie();
+    this.setMovie();
   },
 }
 </script>

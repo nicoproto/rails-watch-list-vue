@@ -16,6 +16,7 @@
 </template>
 
 <script>
+import { mapActions } from 'vuex';
 import MovieForm from "../../components/movies/MovieForm.vue";
 
 export default {
@@ -29,11 +30,14 @@ export default {
     }
   },
   methods: {
+    ...mapActions({
+      registerMovie: "movies/registerMovie"
+    }),
     async saveData(data) {
       this.isLoading = true;
       try {
-        await this.$store.dispatch("movies/registerMovie", data);
-        this.$router.replace("/movies");
+        const responseData = await this.registerMovie(data);
+        this.$router.replace(`/movies/${responseData.id}`);
       } catch (error) {
         this.error = error.message || 'Something went wrong!';
       }

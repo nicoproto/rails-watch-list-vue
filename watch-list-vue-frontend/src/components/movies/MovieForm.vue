@@ -22,7 +22,7 @@
     <p v-if="!poster_urlIsValid">Poster URL must not be empty.</p>
 
     <p v-if="!formIsValid">Please fix the above errors and submit again.</p>
-    <base-button>Create movie</base-button>
+    <base-button>{{ submitBtnText }} movie</base-button>
   </form>
 </template>
 
@@ -38,6 +38,10 @@ export default {
         rating: null,
         poster_url: "",
       }
+    },
+    editing: {
+      type: Boolean,
+      default: false,
     }
   },
   data() {
@@ -48,6 +52,11 @@ export default {
       ratingIsValid: true,
       poster_urlIsValid: true,
       formIsValid: true,
+    }
+  },
+  computed: {
+    submitBtnText() {
+      return this.editing ? "Update" : "Create";
     }
   },
   methods: {

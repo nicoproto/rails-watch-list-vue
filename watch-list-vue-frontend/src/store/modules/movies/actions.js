@@ -24,6 +24,9 @@ export default {
       ...movieData,
       id: responseData.id
     });
+
+    // TODO: Is this good practice?
+    return responseData;
   },
   async loadMovies(context, payload) {
     if (!payload.forceRefresh && !context.getters.shouldUpdate) {

@@ -33,7 +33,7 @@
 <script>
 import MovieItem from "../../components/movies/MovieItem.vue";
 import MovieFilter from "../../components/movies/MovieFilter.vue";
-import { mapGetters } from "vuex";
+import { mapActions, mapGetters } from "vuex";
 
 export default {
   components: {
@@ -74,16 +74,19 @@ export default {
     },
   },
   created() {
-    this.loadMovies();
+    this.setMovies();
   },
   methods: {
+    ...mapActions({
+      loadMovies: "movies/loadMovies",
+    }),
     setFilters(updatedFilters) {
       this.activeFilters = updatedFilters;
     },
-    async loadMovies(refresh = false) {
+    async setMovies(refresh = false) {
       this.isLoading = true;
       try {
-        await this.$store.dispatch("movies/loadMovies", { forceRefresh: refresh})
+        await this.loadMovies({ forceRefresh: refresh});
       } catch (error) {
         this.error = error.message || 'Something went wrong!';
       }
