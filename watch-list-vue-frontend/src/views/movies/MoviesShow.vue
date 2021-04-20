@@ -37,7 +37,6 @@ export default {
   },
   created() {
     this.loadMovie();
-    console.log(this.selectedMovie);
   },
   computed: {
     editLink() {
@@ -67,7 +66,6 @@ export default {
       } catch (error) {
         console.log(error);
       }
-      console.log(this.selectedMovie);
     },
     async destroyMovie() {
       try {

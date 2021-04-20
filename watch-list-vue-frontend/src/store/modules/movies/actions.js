@@ -15,12 +15,10 @@ export default {
 
     const responseData = await response.json();
 
-    if (!response.status.ok) {
+    if (!response.ok) {
       const error = new Error(responseData.message || "Failed to create movie!");
       throw error;
     }
-
-    console.log(responseData);
 
     context.commit("registerMovie", {
       ...movieData,
@@ -81,11 +79,38 @@ export default {
       throw error;
     }
 
-    console.log(responseData);
-
     context.commit("destroyMovie", {
       id: payload.id
     });
 
-  }
+  },
+  async updateMovie(context, payload) {
+    const movieData = {
+      title: payload.title,
+      overview: payload.overview,
+      poster_url: payload.poster_url,
+      rating: payload.rating
+    }
+    const response = await fetch(`http://localhost:3000/api/v1/movies/${payload.id}`, {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        "movie": movieData
+      })
+    });
+
+    const responseData = await response.json();
+
+    if (!response.ok) {
+      const error = new Error(responseData.message || "Failed to update movie!");
+      throw error;
+    }
+
+    context.commit("updateMovie", {
+      ...movieData,
+      id: payload.id
+    });
+  },
 };

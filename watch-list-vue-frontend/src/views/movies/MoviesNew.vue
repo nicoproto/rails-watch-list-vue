@@ -9,7 +9,7 @@
         <div v-if="isLoading">
           <base-spinner></base-spinner>
         </div>
-        <movie-form v-else @save-data="saveData"></movie-form>
+        <movie-form v-else  @save-data="saveData"></movie-form>
       </base-card>
     </section>
   </div>

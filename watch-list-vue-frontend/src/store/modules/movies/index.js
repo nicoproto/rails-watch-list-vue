@@ -8,7 +8,7 @@ export default {
     return {
       lastFetch: null,
       movies: [],
-      selectedMovie: null,
+      selectedMovie: {},
     }
   },
   mutations,

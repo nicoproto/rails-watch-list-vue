@@ -13,6 +13,9 @@ export default {
   },
   destroyMovie(state, payload) {
     state.movies = state.movies.filter(movie => movie.id != payload.id);
-    console.log(state.movies);
-  }
+  },
+  updateMovie(state, payload) {
+    const movieIndex = state.movies.findIndex(movie => movie.id === payload.id);
+    state.movies[movieIndex] = payload;
+  },
 };

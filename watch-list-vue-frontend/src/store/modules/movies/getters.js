@@ -9,7 +9,6 @@ export default {
     return state.selectedMovie;
   },
   shouldUpdate(state) {
-    console.log("lastFetch: ", state.lastFetch);
     const lastFetch = state.lastFetch;
     if (!lastFetch) {
       return true;
