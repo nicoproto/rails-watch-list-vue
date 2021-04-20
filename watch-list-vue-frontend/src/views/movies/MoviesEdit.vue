@@ -61,6 +61,7 @@ export default {
       // this.isLoading = true;
       try {
         await this.loadMovie({id: this.id});
+        console.log(this.selectedMovie);
       } catch (error) {
         console.log(error);
         // this.error = error.message || 'Something went wrong!';
@@ -68,7 +69,7 @@ export default {
       // this.isLoading = false;
     },
   },
-  created() {
+  mounted() {
     this.setMovie();
   },
 }
