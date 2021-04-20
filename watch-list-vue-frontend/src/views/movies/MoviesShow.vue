@@ -78,11 +78,13 @@ export default {
       }
     },
     async removeMovie() {
-      try {
-        this.destroyMovie({ id: this.id });
-        this.$router.replace("/movies");
-      } catch (error) {
-        console.log(error);
+      if(confirm("Do you really want to delete?")) {
+        try {
+          this.destroyMovie({ id: this.id });
+          this.$router.replace("/movies");
+        } catch (error) {
+          console.log(error);
+        }
       }
     },
   },
