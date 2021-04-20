@@ -39,7 +39,7 @@ const routes = [
   {
     path: "/lists",
     component: ListsIndex,
-  }
+  },
 ];
 
 const router = createRouter({

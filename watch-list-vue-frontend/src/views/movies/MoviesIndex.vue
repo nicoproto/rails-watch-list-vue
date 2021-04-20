@@ -77,6 +77,7 @@ export default {
       });
     },
     hasMovies() {
+      // TODO: Update this getter with mapGetters
       return !this.isLoading && this.$store.getters["movies/hasMovies"];
     },
   },
