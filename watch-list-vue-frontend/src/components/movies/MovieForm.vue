@@ -1,23 +1,43 @@
 <template>
   <form @submit.prevent="submitForm">
-    <div class="form-control" :class="{invalid: !titleIsValid}">
+    <div class="form-control" :class="{ invalid: !titleIsValid }">
       <label for="title">Title</label>
-      <input type="text" id="title" v-model.trim="movie.title" @blur="clearValidity('title')">
+      <input
+        type="text"
+        id="title"
+        v-model.trim="movie.title"
+        @blur="clearValidity('title')"
+      />
     </div>
     <p v-if="!titleIsValid">Title must not be empty.</p>
-    <div class="form-control" :class="{invalid: !overviewIsValid}">
+    <div class="form-control" :class="{ invalid: !overviewIsValid }">
       <label for="overview">Overview</label>
-      <textarea id="overview" rows="5" v-model.trim="movie.overview" @blur="clearValidity('overview')"></textarea>
+      <textarea
+        id="overview"
+        rows="5"
+        v-model.trim="movie.overview"
+        @blur="clearValidity('overview')"
+      ></textarea>
     </div>
     <p v-if="!overviewIsValid">Overview must not be empty.</p>
-    <div class="form-control" :class="{invalid: !ratingIsValid}">
+    <div class="form-control" :class="{ invalid: !ratingIsValid }">
       <label for="rating">Rating</label>
-      <input type="number" id="rating" v-model.number="movie.rating" @blur="clearValidity('rating')">
+      <input
+      type="number"
+      id="rating"
+      v-model.number="movie.rating"
+      @blur="clearValidity('rating')"
+      />
     </div>
     <p v-if="!ratingIsValid">Rating must be greater than 0.</p>
-    <div class="form-control" :class="{invalid: !poster_urlIsValid}">
+    <div class="form-control" :class="{ invalid: !poster_urlIsValid }">
       <label for="poster">Poster URL</label>
-      <input type="text" id="poster" v-model.trim="movie.poster_url" @blur="clearValidity('poster_url')">
+      <input
+      type="text"
+      id="poster"
+      v-model.trim="movie.poster_url"
+      @blur="clearValidity('poster_url')"
+      />
     </div>
     <p v-if="!poster_urlIsValid">Poster URL must not be empty.</p>
 
@@ -32,32 +52,32 @@ export default {
   props: {
     movieValues: {
       type: Object,
-      default: {
+      default: () => ({
         title: "",
         overview: "",
         rating: null,
         poster_url: "",
-      }
+      }),
     },
     editing: {
       type: Boolean,
       default: false,
-    }
+    },
   },
   data() {
     return {
-      movie: {...this.movieValues},
+      movie: { ...this.movieValues},
       titleIsValid: true,
       overviewIsValid: true,
       ratingIsValid: true,
       poster_urlIsValid: true,
       formIsValid: true,
-    }
+    };
   },
   computed: {
     submitBtnText() {
       return this.editing ? "Update" : "Create";
-    }
+    },
   },
   methods: {
     clearValidity(input) {
@@ -96,10 +116,10 @@ export default {
         overview: "",
         rating: null,
         poster_url: "",
-      }
+      };
     },
   },
-}
+};
 </script>
 
 <style scoped>

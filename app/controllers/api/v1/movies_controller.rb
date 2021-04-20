@@ -18,7 +18,7 @@ class Api::V1::MoviesController < ApplicationController
 
   def update
     if @movie.update(movie_params)
-      render :show, status: :updated
+      render :show, status: :accepted
     else
       render json: { json: @movie.errors, status: :unprocessable_entity }
     end
