@@ -4,6 +4,12 @@
     <section>
       <base-card>
         <ul v-if="hasLists">
+          <list-item
+            v-for="list in lists"
+            :key="list.id"
+            :id="list.id"
+            :name="list.name"
+          ></list-item>
           <li v-for="list in lists" :key="list.id">
             {{ list.name }}
           </li>
@@ -16,8 +22,12 @@
 
 <script>
 import { mapActions, mapGetters } from "vuex";
+import ListItem from "../../components/lists/ListItem.vue";
 
 export default {
+  components: {
+    ListItem,
+  },
   computed: {
     ...mapGetters({
       lists: "lists/lists",
