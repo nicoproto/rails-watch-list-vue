@@ -2,16 +2,7 @@ class Api::V1::MoviesController < ApplicationController
   before_action :set_movie, only: [ :show, :update, :destroy ]
 
   def index
-    # TODO: Update this to actually render with jbuilder
     @movies = Movie.all
-    limit = params[:_limit]
-
-    if limit.present?
-      limit = limit.to_i
-      @movies = @movies.last(limit)
-    end
-
-    render json: @movies.reverse
   end
 
   def show; end
