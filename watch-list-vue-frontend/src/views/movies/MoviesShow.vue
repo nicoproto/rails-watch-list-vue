@@ -27,6 +27,8 @@
 
 <script>
 import BaseButton from '../../components/ui/BaseButton.vue';
+import { mapGetters } from "vuex";
+
 export default {
   components: { BaseButton },
   props: ["id"],
@@ -39,6 +41,9 @@ export default {
     this.loadMovie();
   },
   computed: {
+    ...mapGetters({
+      selectedStoreMovie: "movies/selectedMovie"
+    }),
     editLink() {
       return this.$route.path + "/edit";
     },
@@ -62,7 +67,7 @@ export default {
     async loadMovie() {
       try {
         await this.$store.dispatch("movies/loadMovie", {id: this.id});
-        this.selectedMovie = this.$store.getters["movies/selectedMovie"]
+        this.selectedMovie = this.selectedStoreMovie;
       } catch (error) {
         console.log(error);
       }

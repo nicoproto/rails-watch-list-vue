@@ -31,8 +31,9 @@
 </template>
 
 <script>
-import MovieItem from "../../components/movies/MovieItem.vue"
-import MovieFilter from "../../components/movies/MovieFilter.vue"
+import MovieItem from "../../components/movies/MovieItem.vue";
+import MovieFilter from "../../components/movies/MovieFilter.vue";
+import { mapGetters } from "vuex";
 
 export default {
   components: {
@@ -51,8 +52,11 @@ export default {
     }
   },
   computed: {
+    ...mapGetters({
+      movies: "movies/movies"
+    }),
     filteredMovies() {
-      const movies = this.$store.getters["movies/movies"];
+      const movies = this.movies;
       return movies.filter(movie => {
         if (this.activeFilters["high-rating"] && (movie.rating > 8)) {
           return true;
