@@ -17,7 +17,7 @@
           <header>
             <h3>Actions:</h3>
             <base-button link :to="editLink">Edit</base-button>
-            <base-button>Destroy</base-button>
+            <base-button @click="removeList">Destroy</base-button>
           </header>
         </base-card>
       </section>
@@ -48,14 +48,27 @@ export default {
   methods: {
     ...mapActions({
       loadList: "lists/loadList",
+      destroyList: "lists/destroyList",
     }),
     async setList() {
+      this.isLoading = true;
       try {
-        this.isLoading = true;
         await this.loadList({ id: this.id });
         this.list = this.selectedList;
       } catch (error) {
         this.error = error.message || "Something went wrong!";
+      }
+      this.isLoading = false;
+    },
+    async removeList() {
+      this.isLoading = true;
+      if (confirm("Do you really want to delete?")) {
+        try {
+          await this.destroyList({ id: this.id });
+          this.$router.replace("/lists");
+        } catch (error) {
+          this.error = error.message || "Something went wrong!";
+        }
       }
       this.isLoading = false;
     },
@@ -64,6 +77,7 @@ export default {
     }
   },
   created() {
+    console.log("trying to find list")
     this.setList();
   },
 };

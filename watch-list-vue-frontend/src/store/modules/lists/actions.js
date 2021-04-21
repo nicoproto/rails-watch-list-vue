@@ -35,4 +35,25 @@ export default {
 
     context.commit("setList", responseData);
   },
+  async destroyList(context, payload) {
+    const response = await fetch(
+      `http://localhost:3000/api/v1/lists/${payload.id}`,
+      {
+        method: "DELETE",
+      }
+    );
+
+    const responseData = await response.json();
+    console.log(!response.ok);
+    if(!response.ok) {
+      const error = new Error(
+        responseData.message || "Failed to destroy list!"
+      );
+      throw error;
+    }
+
+    context.commit("destroyList", {
+      id: payload.id,
+    });
+  },
 };
