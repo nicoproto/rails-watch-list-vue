@@ -22,15 +22,17 @@ export default {
     context.commit("setLists", lists);
   },
   async loadList(context, payload) {
-    const response = await fetch(`http://localhost:3000/api/v1/lists/${payload.id}`);
+    const response = await fetch(
+      `http://localhost:3000/api/v1/lists/${payload.id}`
+    );
 
     const responseData = await response.json();
 
-    if(!response.ok) {
+    if (!response.ok) {
       const error = new Error(responseData.message || "Failed to fetch movie");
       throw error;
     }
 
     context.commit("setList", responseData);
-  }
+  },
 };

@@ -7,5 +7,5 @@ export default {
   },
   selectedList(state) {
     return state.selectedList;
-  }
+  },
 };

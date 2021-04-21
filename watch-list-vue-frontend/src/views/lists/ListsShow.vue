@@ -18,14 +18,14 @@
 </template>
 
 <script>
-import { mapActions, mapGetters } from 'vuex';
+import { mapActions, mapGetters } from "vuex";
 
 export default {
   props: ["id"],
   data() {
     return {
       list: {},
-    }
+    };
   },
   computed: {
     ...mapGetters({
@@ -46,10 +46,10 @@ export default {
       } catch (error) {
         console.log(error); // TODO: Handle this error
       }
-    }
+    },
   },
   created() {
     this.setList();
-  }
-}
+  },
+};
 </script>
