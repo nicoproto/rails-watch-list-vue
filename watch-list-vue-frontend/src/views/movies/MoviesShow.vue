@@ -1,5 +1,8 @@
 <template>
   <div>
+    <base-dialog :show="!!error" title="An error ocurred!" @close="handleError">
+      <p>{{ error }}</p>
+    </base-dialog>
     <section>
       <base-card>
         <h2>{{ selectedMovie.title }}</h2>
@@ -35,6 +38,7 @@ export default {
   data() {
     return {
       isLoading: false,
+      error: null,
       selectedMovie: {},
     };
   },
@@ -71,7 +75,7 @@ export default {
         await this.loadMovie({ id: this.id });
         this.selectedMovie = this.selectedStoreMovie;
       } catch (error) {
-        console.log(error); // TODO: Handle this error
+        this.error = error.message || "Something went wrong!";
       }
     },
     async removeMovie() {
@@ -81,7 +85,7 @@ export default {
           await this.destroyMovie({ id: this.id });
           this.$router.replace("/movies");
         } catch (error) {
-          console.log(error); // TODO: Handle this error
+          this.error = error.message || "Something went wrong!";
         }
       }
       this.isLoading = false;
