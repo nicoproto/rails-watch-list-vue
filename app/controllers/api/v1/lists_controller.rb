@@ -5,7 +5,8 @@ class Api::V1::ListsController < ApplicationController
     @lists = List.all
   end
 
-  def show; end
+  def show;
+  end
 
   def create
     @list = List.new(list_params)
