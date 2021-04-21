@@ -76,7 +76,7 @@ export default {
   },
   computed: {
     submitBtnText() {
-      return this.editing ? "Update" : "Create";
+      return this.movie.id ? "Update" : "Create";
     },
   },
   watch: {

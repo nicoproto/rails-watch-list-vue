@@ -56,4 +56,29 @@ export default {
       id: payload.id,
     });
   },
+  async registerList(context, payload) {
+    const listData = payload;
+
+    const response = await fetch("http://localhost:3000/api/v1/lists", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ list: listData}),
+    })
+
+    const responseData = await response.json();
+
+    if(!response.ok) {
+      const error = new Error(
+        responseData.message || "Failed to create movie!"
+      );
+      throw error;
+    }
+
+    context.commit("registerList", {
+      ...listData,
+      id: responseData.id,
+    });
+
+    return responseData;
+  }
 };

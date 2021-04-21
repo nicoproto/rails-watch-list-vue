@@ -8,4 +8,7 @@ export default {
   destroyList(state, payload) {
     state.lists = state.lists.filter((list) => list.id != payload.id);
   },
+  registerList(state, payload) {
+    state.lists.push(payload);
+  }
 };

@@ -27,7 +27,6 @@ export default {
       id: responseData.id,
     });
 
-    // TODO: Is this good practice?
     return responseData;
   },
   async loadMovies(context, payload) {

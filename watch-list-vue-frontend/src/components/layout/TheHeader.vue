@@ -6,6 +6,7 @@
         <li><router-link to="/movies">All movies</router-link></li>
         <li><router-link to="/lists">All lists</router-link></li>
         <li><router-link to="/movies/new">Add a Movie</router-link></li>
+        <li><router-link to="/lists/new">Add a List</router-link></li>
       </ul>
     </nav>
   </header>
