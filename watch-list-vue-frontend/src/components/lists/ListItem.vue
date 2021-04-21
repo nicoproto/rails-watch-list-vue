@@ -15,9 +15,9 @@ export default {
   computed: {
     listDetailsLink() {
       return this.$route.path + "/" + this.id;
-    }
-  }
-}
+    },
+  },
+};
 </script>
 
 <style scoped>

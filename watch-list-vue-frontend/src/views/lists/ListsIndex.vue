@@ -33,7 +33,7 @@ import ListFilter from "../../components/lists/ListFilter.vue";
 export default {
   components: {
     ListItem,
-    ListFilter
+    ListFilter,
   },
   data() {
     return {
@@ -51,8 +51,8 @@ export default {
       const lists = this.lists;
       return lists.filter((list) => {
         return list.name.includes(this.filterValue);
-      })
-    }
+      });
+    },
   },
   methods: {
     ...mapActions({
@@ -73,7 +73,7 @@ export default {
     filterLists(updatedFilter) {
       console.log(updatedFilter);
       this.filterValue = updatedFilter;
-    }
+    },
   },
   created() {
     this.setLists();

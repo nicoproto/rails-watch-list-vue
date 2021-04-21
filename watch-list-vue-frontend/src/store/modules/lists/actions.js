@@ -5,9 +5,7 @@ export default {
     const responseData = await response.json();
 
     if (!response.ok) {
-      const error = new Error(
-        responseData.message || "Failed to fetch lists!"
-      );
+      const error = new Error(responseData.message || "Failed to fetch lists!");
       throw error;
     }
 
