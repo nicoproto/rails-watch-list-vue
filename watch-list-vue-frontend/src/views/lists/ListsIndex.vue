@@ -3,7 +3,9 @@
     <base-dialog :show="!!error" title="An error ocurred!" @close="handleError">
       <p>{{ error }}</p>
     </base-dialog>
-    <section>FILTERS</section>
+    <section>
+      <list-filter @update-filter="filterLists"></list-filter>
+    </section>
     <section>
       <base-card>
         <div v-if="isLoading">
@@ -11,7 +13,7 @@
         </div>
         <ul v-else-if="hasLists">
           <list-item
-            v-for="list in lists"
+            v-for="list in filteredLists"
             :key="list.id"
             :id="list.id"
             :name="list.name"
@@ -26,15 +28,18 @@
 <script>
 import { mapActions, mapGetters } from "vuex";
 import ListItem from "../../components/lists/ListItem.vue";
+import ListFilter from "../../components/lists/ListFilter.vue";
 
 export default {
   components: {
     ListItem,
+    ListFilter
   },
   data() {
     return {
       isLoading: false,
       error: null,
+      filterValue: "",
     };
   },
   computed: {
@@ -42,6 +47,12 @@ export default {
       lists: "lists/lists",
       hasLists: "lists/hasLists",
     }),
+    filteredLists() {
+      const lists = this.lists;
+      return lists.filter((list) => {
+        return list.name.includes(this.filterValue);
+      })
+    }
   },
   methods: {
     ...mapActions({
@@ -59,6 +70,10 @@ export default {
     handleError() {
       this.error = null;
     },
+    filterLists(updatedFilter) {
+      console.log(updatedFilter);
+      this.filterValue = updatedFilter;
+    }
   },
   created() {
     this.setLists();
