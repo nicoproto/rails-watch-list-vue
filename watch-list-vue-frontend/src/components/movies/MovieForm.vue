@@ -79,11 +79,6 @@ export default {
       return this.movie.id ? "Update" : "Create";
     },
   },
-  watch: {
-    movieValues() {
-      this.movie = this.movieValues;
-    },
-  },
   methods: {
     clearValidity(input) {
       this[input] = true;
