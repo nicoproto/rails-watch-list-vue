@@ -22,28 +22,21 @@
           <base-button link :to="editLink">Edit</base-button>
           <base-button @click="removeMovie">Destroy</base-button>
         </header>
-        <router-view></router-view>
       </base-card>
     </section>
   </div>
 </template>
 
 <script>
-// TODO: Add confirmation on destroy
-import BaseButton from "../../components/ui/BaseButton.vue";
 import { mapGetters, mapActions } from "vuex";
 
 export default {
-  components: { BaseButton },
   props: ["id"],
   data() {
     return {
       isLoading: false,
-      selectedMovie: "",
+      selectedMovie: {},
     };
-  },
-  created() {
-    this.setMovie();
   },
   computed: {
     ...mapGetters({
@@ -78,7 +71,7 @@ export default {
         await this.loadMovie({ id: this.id });
         this.selectedMovie = this.selectedStoreMovie;
       } catch (error) {
-        console.log(error);
+        console.log(error); // TODO: Handle this error
       }
     },
     async removeMovie() {
@@ -88,11 +81,14 @@ export default {
           await this.destroyMovie({ id: this.id });
           this.$router.replace("/movies");
         } catch (error) {
-          console.log(error);
+          console.log(error); // TODO: Handle this error
         }
       }
       this.isLoading = false;
     },
+  },
+  created() {
+    this.setMovie();
   },
 };
 </script>
