@@ -21,15 +21,15 @@ export default {
       type: Object,
       default: () => ({
         name: "",
-      })
-    }
+      }),
+    },
   },
   data() {
     return {
       formIsValid: true,
       nameIsValid: true,
       list: { ...this.listValues },
-    }
+    };
   },
   computed: {
     submitBtnText() {
@@ -58,10 +58,10 @@ export default {
       this.$emit("save-data", this.list);
       this.list = {
         name: "",
-      }
+      };
     },
-  }
-}
+  },
+};
 </script>
 
 <style scoped>

@@ -10,5 +10,9 @@ export default {
   },
   registerList(state, payload) {
     state.lists.push(payload);
-  }
+  },
+  updateList(state, payload) {
+    const listIndex = state.lists.findIndex((list) => list.id == payload.id);
+    state.lists[listIndex] = payload;
+  },
 };

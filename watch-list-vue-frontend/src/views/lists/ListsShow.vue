@@ -74,10 +74,9 @@ export default {
     },
     handleError() {
       this.error = null;
-    }
+    },
   },
   created() {
-    console.log("trying to find list")
     this.setList();
   },
 };

@@ -16,7 +16,7 @@
 </template>
 
 <script>
-import { mapActions } from 'vuex';
+import { mapActions } from "vuex";
 import ListForm from "../../components/lists/ListForm.vue";
 
 export default {
@@ -27,7 +27,7 @@ export default {
     return {
       isLoading: false,
       error: null,
-    }
+    };
   },
   methods: {
     ...mapActions({
@@ -45,7 +45,7 @@ export default {
         this.error = error.messages || "Something went wrong!";
       }
       this.isLoading = false;
-    }
-  }
-}
+    },
+  },
+};
 </script>

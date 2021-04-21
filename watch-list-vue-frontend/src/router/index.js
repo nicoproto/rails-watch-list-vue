@@ -10,6 +10,7 @@ import MoviesEdit from "../views/movies/MoviesEdit.vue";
 import ListsIndex from "../views/lists/ListsIndex.vue";
 import ListsShow from "../views/lists/ListsShow.vue";
 import ListsNew from "../views/lists/ListsNew.vue";
+import ListsEdit from "../views/lists/ListsEdit.vue";
 
 const routes = [
   {
@@ -49,7 +50,12 @@ const routes = [
   },
   {
     path: "/lists/new",
-    component: ListsNew
+    component: ListsNew,
+  },
+  {
+    path: "/lists/:id/edit",
+    component: ListsEdit,
+    props: true,
   },
 ];
 

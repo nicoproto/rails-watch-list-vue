@@ -44,8 +44,8 @@ export default {
     );
 
     const responseData = await response.json();
-    console.log(!response.ok);
-    if(!response.ok) {
+
+    if (!response.ok) {
       const error = new Error(
         responseData.message || "Failed to destroy list!"
       );
@@ -62,12 +62,12 @@ export default {
     const response = await fetch("http://localhost:3000/api/v1/lists", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ list: listData}),
-    })
+      body: JSON.stringify({ list: listData }),
+    });
 
     const responseData = await response.json();
 
-    if(!response.ok) {
+    if (!response.ok) {
       const error = new Error(
         responseData.message || "Failed to create movie!"
       );
@@ -80,5 +80,33 @@ export default {
     });
 
     return responseData;
-  }
+  },
+  async updateList(context, payload) {
+    const listData = payload;
+
+    const response = await fetch(
+      `http://localhost:3000/api/v1/lists/${payload.id}`,
+      {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          list: listData,
+        }),
+      }
+    );
+
+    const responseData = await response.json();
+
+    if (!response.ok) {
+      const error = new Error(responseData.message || "Failed to update list!");
+      throw error;
+    }
+
+    context.commit("updateList", {
+      ...listData,
+      id: payload.id,
+    });
+  },
 };

@@ -71,7 +71,6 @@ export default {
       this.error = null;
     },
     filterLists(updatedFilter) {
-      console.log(updatedFilter);
       this.filterValue = updatedFilter;
     },
   },

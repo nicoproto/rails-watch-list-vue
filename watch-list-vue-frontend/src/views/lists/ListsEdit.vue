@@ -1,65 +1,66 @@
 <template>
   <div>
     <base-dialog :show="!!error" title="An error ocurred!" @close="handleError">
-      <p>{{ error }}</p>
+      {{ error }}
     </base-dialog>
     <section>
       <base-card>
-        <h2>Editing Movie</h2>
+        <h2>Editing List</h2>
         <div v-if="isLoading">
           <base-spinner></base-spinner>
         </div>
-        <movie-form
+        <list-form
           v-else
           @save-data="saveData"
-          :movieValues="{ ...selectedMovie }"
-        ></movie-form>
+          :listValues="{ ...selectedList }"
+        ></list-form>
       </base-card>
     </section>
   </div>
 </template>
 
 <script>
-import MovieForm from "../../components/movies/MovieForm.vue";
 import { mapActions, mapGetters } from "vuex";
+import ListForm from "../../components/lists/ListForm.vue";
+
 export default {
   props: ["id"],
   components: {
-    MovieForm,
+    ListForm,
   },
   data() {
     return {
-      isLoading: false,
       error: null,
+      isLoading: false,
     };
   },
   computed: {
     ...mapGetters({
-      selectedMovie: "movies/selectedMovie",
+      selectedList: "lists/selectedList",
     }),
   },
   methods: {
     ...mapActions({
-      updateMovie: "movies/updateMovie",
-      loadMovie: "movies/loadMovie",
+      updateList: "lists/updateList",
+      loadList: "lists/loadList",
     }),
+    handleError() {
+      this.error = null;
+    },
     async saveData(data) {
       this.isLoading = true;
       try {
-        await this.updateMovie(data);
-        this.$router.replace(`/movies/${data.id}`);
+        await this.updateList(data);
+        this.$router.replace(`/lists/${data.id}`);
       } catch (error) {
         this.error = error.message || "Something went wrong!";
       }
       this.isLoading = false;
     },
-    handleError() {
-      this.error = null;
-    },
-    async setMovie() {
+    async setList() {
       this.isLoading = true;
       try {
-        await this.loadMovie({ id: this.id });
+        await this.loadList({ id: this.id });
       } catch (error) {
         this.error = error.message || "Something went wrong!";
       }
@@ -67,7 +68,7 @@ export default {
     },
   },
   mounted() {
-    this.setMovie();
+    this.setList();
   },
 };
 </script>
