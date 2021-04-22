@@ -40,9 +40,10 @@ export default {
       this.isLoading = true;
       try {
         const responseData = await this.registerList(data);
+        // TODO: Add conditional here
         this.$router.replace(`/lists/${responseData.id}`);
       } catch (error) {
-        this.error = error.messages || "Something went wrong!";
+        this.error = error.message || "Something went wrong!";
       }
       this.isLoading = false;
     },

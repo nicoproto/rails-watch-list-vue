@@ -42,4 +42,9 @@ class Api::V1::ListsController < ApplicationController
   def set_list
     @list = List.find(params[:id])
   end
+
+  def render_error
+    messages = @list.errors.keys.map {|key| "#{key}: #{@list.errors[key].join(',')}"}.join(',')
+    render json: { message: messages, status: :unprocessable_entity }
+  end
 end
