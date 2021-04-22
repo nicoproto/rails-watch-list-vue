@@ -8,7 +8,7 @@ end
 puts "Cleaning up database..."
 Bookmark.destroy_all
 List.destroy_all
-# Movie.destroy_all
+Movie.destroy_all
 puts "Database clean!"
 
 line
@@ -26,31 +26,31 @@ end
 puts "Done creating lists"
 
 
-# (270..450).to_a.each do |page_number|
-#   puts "Searching on page #{page_number}"
-#   url = "http://tmdb.lewagon.com/movie/top_rated?language=en-US&page=#{page_number}"
+(1..40).to_a.each do |page_number|
+  puts "Searching on page #{page_number}"
+  url = "http://tmdb.lewagon.com/movie/top_rated?language=en-US&page=#{page_number}"
 
-#   movies_serialized = URI.open(url).read
-#   movies = JSON.parse(movies_serialized)
+  movies_serialized = URI.open(url).read
+  movies = JSON.parse(movies_serialized)
 
-#   puts "Creating movies..."
+  puts "Creating movies..."
 
-#   movies["results"].each do |movie|
-#     overview = movie["overview"].present? ? movie["overview"] : "No overview provided"
-#     puts overview
+  movies["results"].each do |movie|
+    overview = movie["overview"].present? ? movie["overview"] : "No overview provided"
+    puts overview
 
-#     if movie["original_language"] == "en"
-#       newMovie = Movie.find_or_create_by!(title: movie["original_title"]) do |m|
-#         m.overview = overview
-#         m.poster_url = "https://image.tmdb.org/t/p/w500" + movie["poster_path"]
-#         m.rating = movie["vote_average"]
-#       end
-#       puts newMovie.title + " created!"
-#       line
-#     end
-#   end
-#   line
-# end
+    if movie["original_language"] == "en"
+      newMovie = Movie.find_or_create_by!(title: movie["original_title"]) do |m|
+        m.overview = overview
+        m.poster_url = "https://image.tmdb.org/t/p/w500" + movie["poster_path"]
+        m.rating = movie["vote_average"]
+      end
+      puts newMovie.title + " created!"
+      line
+    end
+  end
+  line
+end
 
 puts "Done creating movies!"
 
