@@ -12,6 +12,8 @@ import ListsShow from "../views/lists/ListsShow.vue";
 import ListsNew from "../views/lists/ListsNew.vue";
 import ListsEdit from "../views/lists/ListsEdit.vue";
 
+import BookmarksNew from "../views/bookmarks/BookmarksNew.vue";
+
 const routes = [
   {
     path: "/movies",
@@ -55,6 +57,11 @@ const routes = [
   {
     path: "/lists/:id/edit",
     component: ListsEdit,
+    props: true,
+  },
+  {
+    path: "/lists/:list_id/bookmarks/new",
+    component: BookmarksNew,
     props: true,
   },
 ];

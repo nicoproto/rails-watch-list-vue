@@ -18,6 +18,7 @@
             <h3>Actions:</h3>
             <base-button link :to="editLink">Edit</base-button>
             <base-button @click="removeList">Destroy</base-button>
+            <base-button link :to="addBookmarkLink">Add Bookmark</base-button>
           </header>
         </base-card>
       </section>
@@ -26,7 +27,7 @@
           <header>
             <h3>Bookmarks</h3>
             </header>
-          <ul>
+          <ul v-if="hasBookmarks">
             <bookmark-item
               v-for="bookmark in bookmarks"
               :key="bookmark.id"
@@ -35,6 +36,7 @@
               :movie="bookmark.movie"
             ></bookmark-item>
           </ul>
+          <p v-else>No bookmarks for this list yet.</p>
         </base-card>
       </section>
     </div>
@@ -62,12 +64,16 @@ export default {
     ...mapGetters({
       selectedList: "lists/selectedList",
       listBookmarks: "bookmarks/bookmarks",
+      hasBookmarks: "bookmarks/hasBookmarks",
     }),
     editLink() {
       return this.$route.path + "/edit";
     },
     headerText() {
       return this.list.name.charAt(0).toUpperCase() + this.list.name.slice(1) + " movie list"
+    },
+    addBookmarkLink() {
+      return this.$route.path + "/bookmarks/new";
     }
   },
   methods: {
