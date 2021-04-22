@@ -9,7 +9,7 @@
     <div v-else>
       <section>
         <base-card>
-          <h2>Name: {{ list.name }}</h2>
+          <h2>{{ headerText }}</h2>
         </base-card>
       </section>
       <section>
@@ -21,34 +21,60 @@
           </header>
         </base-card>
       </section>
+      <section>
+        <base-card>
+          <header>
+            <h3>Bookmarks</h3>
+            </header>
+          <ul>
+            <bookmark-item
+              v-for="bookmark in bookmarks"
+              :key="bookmark.id"
+              :id="bookmark.id"
+              :comment="bookmark.comment"
+              :movie="bookmark.movie"
+            ></bookmark-item>
+          </ul>
+        </base-card>
+      </section>
     </div>
   </div>
 </template>
 
 <script>
 import { mapActions, mapGetters } from "vuex";
+import BookmarkItem from "../../components/bookmarks/BookmarkItem.vue";
 
 export default {
   props: ["id"],
+  components: {
+    BookmarkItem
+  },
   data() {
     return {
       isLoading: false,
       error: null,
       list: {},
+      bookmarks: [],
     };
   },
   computed: {
     ...mapGetters({
       selectedList: "lists/selectedList",
+      listBookmarks: "bookmarks/bookmarks",
     }),
     editLink() {
       return this.$route.path + "/edit";
     },
+    headerText() {
+      return this.list.name.charAt(0).toUpperCase() + this.list.name.slice(1) + " movie list"
+    }
   },
   methods: {
     ...mapActions({
       loadList: "lists/loadList",
       destroyList: "lists/destroyList",
+      loadBookmarks: "bookmarks/loadBookmarks",
     }),
     async setList() {
       this.isLoading = true;
@@ -72,12 +98,29 @@ export default {
       }
       this.isLoading = false;
     },
+    async setBookmarks() {
+      try {
+        await this.loadBookmarks({ list_id: this.id });
+        this.bookmarks = this.listBookmarks;
+      } catch (error) {
+        this.error = error.message || "Something went wrong!";
+      }
+    },
     handleError() {
       this.error = null;
     },
   },
   created() {
     this.setList();
+    this.setBookmarks();
   },
 };
 </script>
+
+<style scoped>
+ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+</style>

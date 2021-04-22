@@ -1,4 +1,4 @@
-class API::V1::BookmarksController < ApplicationController
+class Api::V1::BookmarksController < ApplicationController
   before_action :set_list, only: [:index, :create]
   before_action :set_bookmark, only: [:destroy]
 
