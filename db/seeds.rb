@@ -35,12 +35,22 @@ end
 puts "Done creating movies!"
 
 list_names = ["action", "adventure", "comedy", "crime and mystery", "fantasy", "historical", "horror", "romance", "satire", "science fiction", "speculative", "thriller", "western"]
+comments = ["This was an amazing movie", "Great movie, didn't like the end", "I wish it was a longer movie", "I think this is a real movie", "Can this movie be any better?", "I didn't like this movie that much", "This is an insane cult movie", "I like turtles", "Does anyone read this?", "Not sure who directed this"]
+
 
 puts "Creating movies..."
 
 list_names.each do |list_name|
   list = List.create!(name: list_name)
   puts list.name + " created!"
+
+  Movie.all.sample(5).each do |movie|
+    Bookmark.create!(
+      list: list,
+      movie: movie,
+      comment: comments.sample
+    )
+  end
   line
 end
 
