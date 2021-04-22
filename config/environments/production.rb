@@ -103,5 +103,5 @@ Rails.application.configure do
   # config.active_record.database_resolver = ActiveRecord::Middleware::DatabaseSelector::Resolver
   # config.active_record.database_resolver_context = ActiveRecord::Middleware::DatabaseSelector::Resolver::Session
 
-  config.allowed_cors_origins = ["https://watch-list-vue.herokuapp.com/api/v1"]
+  config.allowed_cors_origins = ["https://laughing-spence-229e46.netlify.app"]
 end
