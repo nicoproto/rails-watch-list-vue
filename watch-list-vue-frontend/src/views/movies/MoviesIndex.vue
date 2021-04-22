@@ -5,6 +5,7 @@
     </base-dialog>
     <section>
       <movie-filter @change-filter="setFilters"></movie-filter>
+      <movie-search @update-filter="filterLists"></movie-search>
     </section>
     <section>
       <base-card>
@@ -36,12 +37,14 @@
 <script>
 import MovieItem from "../../components/movies/MovieItem.vue";
 import MovieFilter from "../../components/movies/MovieFilter.vue";
+import MovieSearch from '../../components/movies/MovieSearch.vue';
 import { mapActions, mapGetters } from "vuex";
 
 export default {
   components: {
     MovieItem,
     MovieFilter,
+    MovieSearch,
   },
   data() {
     return {
@@ -52,6 +55,7 @@ export default {
         "mid-rating": true,
         "low-rating": true,
       },
+      textFilter: "",
     };
   },
   computed: {
@@ -59,22 +63,28 @@ export default {
       movies: "movies/movies",
     }),
     filteredMovies() {
-      const movies = this.movies;
-      return movies.filter((movie) => {
-        if (this.activeFilters["high-rating"] && movie.rating > 8) {
+      const movies = this.movies.filter((movie) => {
+        if (this.activeFilters["high-rating"] && movie.rating > 9) {
           return true;
         }
         if (
           this.activeFilters["mid-rating"] &&
-          movie.rating > 5 &&
-          movie.rating <= 8
+          movie.rating > 7 &&
+          movie.rating <= 9
         ) {
           return true;
         }
-        if (this.activeFilters["low-rating"] && movie.rating <= 5) {
+        if (this.activeFilters["low-rating"] && movie.rating <= 7) {
           return true;
         }
       });
+
+      if (this.textFilter != "") {
+        return movies.filter((movie) => {
+          return movie.title.toLowerCase().includes(this.textFilter.toLowerCase());
+        });
+      }
+      return movies;
     },
     hasMovies() {
       // TODO: Update this getter with mapGetters
@@ -103,6 +113,9 @@ export default {
     handleError() {
       this.error = null;
     },
+    filterLists(updatedTextFilter) {
+      this.textFilter = updatedTextFilter;
+    }
   },
 };
 </script>
